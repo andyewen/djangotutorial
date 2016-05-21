@@ -1,0 +1,7 @@
+li a {
+  color: darkred;
+}
+
+body {
+  background: white url("images/bubbles.png") no-repeat right top;
+}
