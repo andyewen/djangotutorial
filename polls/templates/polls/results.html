@@ -1,11 +1,19 @@
-<h1>{{ questions.question_text }}</h1>
+{% extends 'polls/base.html' %}
 
-<ul>
-{% for choice in question.choice_set.all %}
-  <li>
-    {{ choice.choice_text }} -- {{ choice.votes }}
-    vote{{ choice.votes|pluralize }}
-  </li>
-{% endfor %}
+{% block title %}Poll Details{% endblock %}
 
-<a href="{% url 'polls:detail' question.id %}">Vote again?</a>
+{% block body_block %}
+  <div class="container">
+    <h1>{{ question.question_text }}</h1>
+
+    <ul>
+    {% for choice in question.choice_set.all %}
+      <li>
+        {{ choice.choice_text }} -- {{ choice.votes }}
+        vote{{ choice.votes|pluralize }}
+      </li>
+    {% endfor %}
+
+    <a href="{% url 'polls:detail' question.id %}">Vote again?</a>
+  </div>
+{% endblock %}
