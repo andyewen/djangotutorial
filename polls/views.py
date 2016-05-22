@@ -5,6 +5,7 @@ from django.views import generic
 from django.utils import timezone
 
 from .models import Question
+from .models import Choice
 
 
 class IndexView(generic.ListView):
@@ -46,3 +47,21 @@ def vote(request, question_id):
         selected_choice.votes += 1
         selected_choice.save()
         return HttpResponseRedirect(reverse('polls:results', args=(p.id,)))
+
+
+def create_question(request):
+    if (request.POST):
+        try:
+            q = Question(question_text=request.POST["question_text"],
+                         pub_date=timezone.now())
+            q.save()
+            for i in range(1, 4):
+                choice_text = request.POST['choice{}'.format(i)]
+                c = Choice(question=q, choice_text=choice_text)
+                c.save()
+        except (KeyError):
+            return render(request, 'polls/index.html')
+
+        return HttpResponseRedirect(reverse('polls:detail', args=(q.id,)))
+    else:
+        return render(request, 'polls/create.html')

@@ -1,0 +1,25 @@
+{% extends 'polls/base.html' %} {% block title %}Create a poll{% endblock %}{% block body_block %}
+
+<div class="container">
+  <h1>Create a poll</h1>
+  <form action="{% url 'polls:create' %}" method="post">
+    {% csrf_token %}
+    <div class="form-group">
+      <label>
+        Question
+        <input type="text" name="question_text" id="question_text">
+      </label>
+    </div>
+    <div class="form-group">
+      {% for count in "xxx" %}
+      <label>
+        Choice {{ forloop.counter }}
+        <input type="text" name="choice{{ forloop.counter }}">
+      </label>
+      {% endfor %}
+    </div>
+    <input type="submit" class="form-control btn btn-default" value="Create">
+  </form>
+  <a href="{% url 'polls:index' %}">Return to polls.</a>
+</div>
+{% endblock %}

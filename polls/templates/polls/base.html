@@ -1,12 +1,16 @@
 {% load staticfiles %}
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="utf-8">
-    <title>{% block title %}Poll{% endblock %}</title>
-    <link rel="stylesheet" type="text/css" href="{% static 'polls/css/bootstrap.min.css' %}"/>
-  </head>
-  <body>
-    {% block body_block %}{% endblock %}
-  </body>
+
+<head>
+  <meta charset="utf-8">
+  <title>{% block title %}Poll{% endblock %}</title>
+  <link rel="stylesheet" href="{% static 'polls/css/bootstrap.min.css' %}" />
+  <link rel="stylesheet" href="{% static 'polls/css/bootstrap-theme.min.css' %}" />
+</head>
+
+<body>
+  {% block body_block %}{% endblock %}
+</body>
+
 </html>

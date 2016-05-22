@@ -1,29 +1,22 @@
-{% extends 'polls/base.html' %}
+{% extends 'polls/base.html' %} {% block title %}Poll Details{% endblock %} {% block body_block %}
 
-{% block title %}Poll Details{% endblock %}
+<div class="container">
+  <h1>{{ question.question_text }} </h1> {% if error_message %}
+  <p><strong>{{ error_message }}</strong></p>{% endif %}
 
-{% block body_block %}
-  <div class="container">
-    <h1>{{ question.question_text }} </h1>
-
-    {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
-
-    <form action="{% url 'polls:vote' question.id %}" method="post">
-      <div class="form-group">
-        {% csrf_token %}
-        {% for choice in question.choice_set.all %}
-          <div class="radio">
-            <label>
-              <input type="radio" name="choice"
-                     id="choice{{ forloop.counter }}"
-                     value="{{ choice.id }}">
-              {{ choice.choice_text }}
-            </label>
-          </div>
-          <br/>
-        {% endfor %}
+  <form action="{% url 'polls:vote' question.id %}" method="post">
+    <div class="form-group">
+      {% csrf_token %}
+      {% for choice in question.choice_set.all %}
+      <div class="radio">
+        <label>
+          <input type="radio" name="choice" id="choice{{ forloop.counter }}" value="{{ choice.id }}"> {{ choice.choice_text }}
+        </label>
       </div>
-      <input type="submit" class="form-control" value="Vote">
-    </form>
-  </div>
+      <br/> {% endfor %}
+    </div>
+    <input type="submit" class="form-control" value="Vote">
+  </form>
+  <a href="{% url 'polls:index' %}">Return to polls</a>
+</div>
 {% endblock %}
